@@ -1,4 +1,5 @@
 import {} from 'whatwg-fetch';
+declare var YT;
 
 class Page {
     stories: Array<Story>;
@@ -20,15 +21,23 @@ class Page {
     }
 
     render(){
-        document.getElementById('root').innerHTML = '';
         let elem = document.createElement('div');
-
+        elem.classList.add('player');
         elem.appendChild(this.stories[this.currentStory].render());
-        // this.stories.map(story => {
-        //     elem.appendChild(story.render());
-        // });
 
-        document.getElementById('root').appendChild(elem);
+        document.getElementById('root').innerHTML = elem.outerHTML;
+
+        console.log(YT);
+        new YT.Player('video', {
+            events: {
+              'onReady': (r) => { r.target.playVideo(); },
+              'onStateChange': e => {
+                  if(e.data == 0){
+                      this.next();
+                  }
+              }
+            }
+          });
         return elem;
     }
 
@@ -50,14 +59,19 @@ class Story {
     showing = false;
     constructor(data){
         this.data = data.data;
-        this.video = new Video(this.data.secure_media.oembed);
+        if(this.data.secure_media && this.data.secure_media.oembed){
+            this.video = new Video(this.data.secure_media.oembed);
+        }
     }
 
     render(){
         let elem = document.createElement('div');
         elem.innerHTML = this.data.title;
         
-        elem.appendChild(this.video.render());
+        if(this.video){
+            elem.appendChild(this.video.render());
+        }
+
 
         elem.addEventListener('click', () => {
             let comments = this.comments;
@@ -87,6 +101,9 @@ class Video {
     render(){
         let elem = document.createElement('div');
         elem.innerHTML = this.htmlDecode(this.data.html);
+
+        elem.getElementsByTagName('iframe')[0].id = "video";
+
 
         return elem;
     }
