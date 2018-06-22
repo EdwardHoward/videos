@@ -9,15 +9,32 @@
     <style>
         #root{
             text-align: center;
+            flex-grow: 1;
         }
         .player{
             text-align: left;
             display: inline-block;
         }
+
+        .player-container{
+            display: flex;
+            align-items: center;
+        }
+
+        .button{
+            height: 100%;
+            padding: 100px;
+            font-size: 300%;
+            cursor: pointer;
+        }
     </style>
 </head>
 <body>
-    <div id="root"></div>
+    <div class="player-container">
+        <div id="prev" class="button"><</div>
+        <div id="root"></div>
+        <div id="next" class="button">></div>
+    </div>
     <script src="https://www.youtube.com/iframe_api"></script>
     <script src="dist/bundle.js"></script>
 </body>
