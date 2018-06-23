@@ -33,7 +33,6 @@
     "on-headers": "^1.0.1",
     "react": "^16.4.1",
     "react-dom": "^16.4.1",
-    "react-resizable": "^1.7.5",
     "whatwg-fetch": "^2.0.4"
   }
 }

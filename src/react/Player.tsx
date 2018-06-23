@@ -1,7 +1,6 @@
 import * as React from 'react';
 import Story from './Story';
 import '../styles/main';
-import 'react-resizable/css/style'
 export class Player extends React.Component<{subreddit: string}, {stories, currentStory: number, page}>{
     constructor(props){
         super(props);
@@ -24,7 +23,7 @@ export class Player extends React.Component<{subreddit: string}, {stories, curre
         return (
             <div>
                 <Story story={this.state.stories[this.state.currentStory]} />
-                <div className="nav prev" onClick={this.prevStory}>prev</div>
+                {this.state.currentStory > 0 ? (<div className="nav prev" onClick={this.prevStory}>prev</div>) : null}
                 <div className="nav next" onClick={this.nextStory}>next</div>
             </div>
         );
@@ -42,7 +41,7 @@ export class Player extends React.Component<{subreddit: string}, {stories, curre
     prevStory(){
         let prev = this.state.currentStory - 1;
         if(prev < 0){
-            this.prevPage();
+            //this.prevPage();
         }else{
             this.setState({currentStory: prev});
         }
@@ -61,14 +60,14 @@ export class Player extends React.Component<{subreddit: string}, {stories, curre
     }
 
     prevPage(){
-        const url = `https://www.reddit.com/r/${this.props.subreddit}.json`;
+        // const url = `https://www.reddit.com/r/${this.props.subreddit}.json`;
 
-        fetch(url)
-            .then(res => res.json())
-            .then(res => { 
-                console.log(res.data);
-                this.setState({page: res.data, stories: res.data.children});
-            });
+        // fetch(url)
+        //     .then(res => res.json())
+        //     .then(res => { 
+        //         console.log(res.data);
+        //         this.setState({page: res.data, stories: res.data.children});
+        //     });
     }
 }
 

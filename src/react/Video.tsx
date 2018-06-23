@@ -1,6 +1,4 @@
 import * as React from 'react';
-import { Resizable, ResizableBox } from 'react-resizable';
-
 declare var YT;
 
 export interface VideoProps {
@@ -16,9 +14,7 @@ export default class Video extends React.Component<VideoProps, any> {
     }
     render() {
         return (
-            <ResizableBox width={600} height={600} minConstraints={[100, 100]} maxConstraints={[300, 300]} handleSize={[10, 10]}>
             <div ref={this.ref} dangerouslySetInnerHTML={{ __html: this.getVideoUrl(this.props.story) }} />
-            </ResizableBox>
         );
     }
 
