@@ -2,8 +2,9 @@ const path = require('path');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 module.exports = {
-  entry: './src/index.ts',
-  devtool: 'inline-source-map',
+  entry: './src/index.tsx',
+  mode: 'production',
+//   devtool: 'inline-source-map',
   module: {
     rules: [
       {
@@ -18,7 +19,7 @@ module.exports = {
     ]
   },
   resolve: {
-    extensions: [ '.tsx', '.ts', '.js', '.scss']
+    extensions: [ '.tsx', '.ts', '.js', '.scss', '.css']
   },
   output: {
     filename: 'bundle.js',

@@ -1,6 +1,6 @@
-import Page from "./reddit/page";
-import './styles/main';
-import From from './reddit/From';
+import Page from "./reddit/Page";
+// import './styles/main';
+import { From } from './reddit/From';
 // document.addEventListener('DOMContentLoaded', () => {
 //     var page = new Page("Videos");
 //     document.addEventListener('keyup', (e) => {
@@ -19,11 +19,34 @@ import From from './reddit/From';
 //     });
 // });
 
+class Component{
+    protected props;
+    constructor(props){
+        this.props = props;
+    }
+}
+
+class Text extends Component{
+
+    onClick(){
+
+    }
+
+    render(){    
+        return From.createElement(
+            'div', 
+            {class: 'header'}, 
+            From.createElement(
+                'h1', 
+                {onClick: this.onClick}, 
+                this.props.text
+            )
+        );
+    }
+}
+
 document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('root').appendChild(
-        From.createElement(
-            'div', {
-
-            }, 
-            From.createElement('h1', {}, 'test')));
+        From.createElement(Text, {text: 'header'})
+    );
 });
