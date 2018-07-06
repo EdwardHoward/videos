@@ -3,6 +3,8 @@ declare var YT;
 
 export interface VideoProps {
     story;
+    next;
+    prev;
 }
 
 export default class Video extends React.Component<VideoProps, any> {
@@ -18,7 +20,6 @@ export default class Video extends React.Component<VideoProps, any> {
         );
     }
 
-    component
     componentDidUpdate(){
         this.playVideo();
     }
@@ -38,7 +39,7 @@ export default class Video extends React.Component<VideoProps, any> {
               'onReady': (r) => { r.target.playVideo(); },
               'onStateChange': e => {
                   if(e.data == 0){
-                      //this.next();
+                      this.props.next();
                   }
               }
             }
