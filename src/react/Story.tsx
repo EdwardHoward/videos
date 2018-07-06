@@ -2,7 +2,12 @@ import * as React from 'react';
 import Video from './Video';
 import Display from './Display';
 
-export default class Story extends React.Component<{story}> {
+export interface StoryProps{
+    story;
+    next;
+    prev;
+}
+export default class Story extends React.Component<StoryProps> {
     private _isActive: boolean = false;
 
     render(){
@@ -13,7 +18,7 @@ export default class Story extends React.Component<{story}> {
             return (
                 <div className="header">
                     <Display story={data} />
-                    <Video story={data} />
+                    <Video story={data} next={this.props.next} prev={this.props.prev}/>
                 </div>
             )
         }

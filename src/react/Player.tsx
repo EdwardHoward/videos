@@ -2,7 +2,11 @@ import * as React from 'react';
 import Story from './Story';
 import '../styles/main';
 import Playlist from './Playlist';
-export class Player extends React.Component<{subreddit: string}, {stories, currentStory: number, page}>{
+
+export interface PlayerProps {
+    subreddit;
+}
+export class Player extends React.Component<PlayerProps, {stories, currentStory: number, page}>{
     constructor(props){
         super(props);
         this.state = {page: {}, stories: [], currentStory: 0};
@@ -29,7 +33,7 @@ export class Player extends React.Component<{subreddit: string}, {stories, curre
     render(){
         return (
             <div>
-                <Story story={this.state.stories[this.state.currentStory]} />
+                <Story story={this.state.stories[this.state.currentStory]} next={this.nextStory} prev={this.prevStory}/>
                 <Playlist stories={this.state.stories} current={this.state.currentStory} onSelect={this.onSelect}/>
                 {this.state.currentStory > 0 ? (<div className="nav prev" onClick={this.prevStory}>prev</div>) : null}
                 <div className="nav next" onClick={this.nextStory}>next</div>
