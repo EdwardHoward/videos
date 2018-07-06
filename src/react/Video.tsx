@@ -14,7 +14,7 @@ export default class Video extends React.Component<VideoProps, any> {
     }
     render() {
         return (
-            <div ref={this.ref} dangerouslySetInnerHTML={{ __html: this.getVideoUrl(this.props.story) }} />
+            <div className="video" ref={this.ref} dangerouslySetInnerHTML={{ __html: this.getVideoUrl(this.props.story) }} />
         );
     }
 

@@ -1,5 +1,6 @@
 import * as React from 'react';
 import Video from './Video';
+import Display from './Display';
 
 export default class Story extends React.Component<{story}> {
     private _isActive: boolean = false;
@@ -10,8 +11,8 @@ export default class Story extends React.Component<{story}> {
             const data = this.props.story.data;
             
             return (
-                <div>
-                    <a target='_blank' href={`https://reddit.com${data.permalink}`}><h1>{data.title}</h1></a>
+                <div className="header">
+                    <Display story={data} />
                     <Video story={data} />
                 </div>
             )

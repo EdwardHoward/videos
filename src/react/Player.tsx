@@ -1,20 +1,27 @@
 import * as React from 'react';
 import Story from './Story';
 import '../styles/main';
+import Playlist from './Playlist';
 export class Player extends React.Component<{subreddit: string}, {stories, currentStory: number, page}>{
     constructor(props){
         super(props);
         this.state = {page: {}, stories: [], currentStory: 0};
         this.nextStory = this.nextStory.bind(this);
+        this.nextPage = this.nextPage.bind(this);
         this.prevStory = this.prevStory.bind(this);
+        this.onSelect = this.onSelect.bind(this);
     }
+
+    getReddit(){
+
+    }
+
     componentDidMount(){
         const url = `https://www.reddit.com/r/${this.props.subreddit}.json`;
 
         fetch(url)
             .then(res => res.json())
-            .then(res => { 
-                console.log(res.data);
+            .then(res => {
                 this.setState({page: res.data, stories: res.data.children});
             });
     }
@@ -23,16 +30,21 @@ export class Player extends React.Component<{subreddit: string}, {stories, curre
         return (
             <div>
                 <Story story={this.state.stories[this.state.currentStory]} />
+                <Playlist stories={this.state.stories} current={this.state.currentStory} onSelect={this.onSelect}/>
                 {this.state.currentStory > 0 ? (<div className="nav prev" onClick={this.prevStory}>prev</div>) : null}
                 <div className="nav next" onClick={this.nextStory}>next</div>
             </div>
         );
     }
 
+    onSelect(i){
+        this.setState({currentStory: i});
+    }
+
     nextStory(){
         let next = this.state.currentStory + 1;
-        if(next > this.state.stories.length){
-            this.nextStory();
+        if(next >= this.state.stories.length){
+            this.nextPage();
         }else{
             this.setState({currentStory: next});
         }
@@ -50,12 +62,10 @@ export class Player extends React.Component<{subreddit: string}, {stories, curre
 
     nextPage(){
         const url = `https://www.reddit.com/r/${this.props.subreddit}/.json?after=${this.state.page.after}`;
-        this.setState({currentStory: 0});
         fetch(url)
             .then(res => res.json())
             .then(res => { 
-                console.log(res.data);
-                this.setState({page: res.data, stories: res.data.children});
+                this.setState({page: res.data, stories: this.state.stories.concat(res.data.children)});
             });
     }
 
