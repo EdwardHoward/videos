@@ -4,7 +4,7 @@ import '../styles/main';
 import Playlist from './Playlist';
 
 export interface PlayerProps {
-    subreddit;
+    match;
 }
 export class Player extends React.Component<PlayerProps, {stories, currentStory: number, page}>{
     constructor(props){
@@ -21,7 +21,7 @@ export class Player extends React.Component<PlayerProps, {stories, currentStory:
     }
 
     componentDidMount(){
-        const url = `https://www.reddit.com/r/${this.props.subreddit}.json`;
+        const url = `https://www.reddit.com/r/${this.props.match.params.subreddit}.json`;
 
         fetch(url)
             .then(res => res.json())
@@ -32,7 +32,7 @@ export class Player extends React.Component<PlayerProps, {stories, currentStory:
 
     render(){
         return (
-            <div>
+            <div className="container">
                 <Story story={this.state.stories[this.state.currentStory]} next={this.nextStory} prev={this.prevStory}/>
                 <Playlist stories={this.state.stories} current={this.state.currentStory} onSelect={this.onSelect}/>
                 {this.state.currentStory > 0 ? (<div className="nav prev" onClick={this.prevStory}>prev</div>) : null}
@@ -65,7 +65,7 @@ export class Player extends React.Component<PlayerProps, {stories, currentStory:
     }
 
     nextPage(){
-        const url = `https://www.reddit.com/r/${this.props.subreddit}/.json?after=${this.state.page.after}`;
+        const url = `https://www.reddit.com/r/${this.props.match.params.subreddit}/.json?after=${this.state.page.after}`;
         fetch(url)
             .then(res => res.json())
             .then(res => { 

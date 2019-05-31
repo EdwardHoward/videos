@@ -13,7 +13,7 @@ export default class Playlist extends React.Component<PlaylistProps, any> {
 
     render() {
         const style = {
-            transform: `translateX(-${this.props.current * 25}%)`
+            transform: `translateX(-${this.props.current * 15}%)`
         }
         return (
             <div className="playlist">

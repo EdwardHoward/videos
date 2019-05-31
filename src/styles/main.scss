@@ -3,11 +3,20 @@
 *, *:before, *:after{
     box-sizing: inherit;
 }
+
+html, body, #root, .container {
+    height: 100%;
+}
 body{
     background: white;//#9bacff;
     box-sizing: border-box;
     margin: 0;
     font-family: 'Noto Sans', sans-serif;
+}
+
+.container{
+    display: flex;
+    flex-direction: column;
 }
 
 .nav{
@@ -25,7 +34,7 @@ body{
 }
 
 .playlist{
-    width: 50%;
+    //width: 50%;
     margin: 0 auto;
     overflow: hidden;
 
@@ -34,7 +43,7 @@ body{
         overflow: hidden;
         display: inline-block;
         padding: 5px;
-        width: 25%;
+        width: 15%;
         
         img{
             width: 100%;
@@ -57,17 +66,14 @@ body{
 .video{
     background: black;
     padding: 15px;
-
+    flex-grow: 1;
     iframe{
          display: block;
          margin: 0 auto;
-     
          max-width: 100%;
+         height: 100%;
+         width: 100%;
     }
-}
-
-#video {
-
 }
 
 a{
@@ -76,7 +82,9 @@ a{
 
 .header{
     background: #3F51B5;
-
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
 
     .display{
         width: 50%;

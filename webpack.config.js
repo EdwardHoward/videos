@@ -2,7 +2,7 @@ const path = require('path');
 
 module.exports = {
   entry: './src/index.tsx',
-  mode: 'production',
+  mode: 'development',
   devtool: 'inline-source-map',
   module: {
     rules: [
@@ -24,5 +24,8 @@ module.exports = {
     filename: 'bundle.js',
     path: path.resolve(__dirname, 'dist'),
     publicPath: '/dist/'
+  },
+  devServer: {
+    historyApiFallback: true
   }
 };
